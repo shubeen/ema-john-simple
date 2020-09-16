@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import './Login.css';
 
 import firebaseConfig from './firebaseConfig'
 import { useContext } from 'react';
@@ -11,6 +12,9 @@ firebase.initializeApp(firebaseConfig);
 
 function Login() {
   const [newUser, setNewUser] = useState(false);
+  const [loggedInUser,setLoggedInUser]= useContext(UserContext);
+  
+  
 
   const [user, setUser] = useState({
 
@@ -19,8 +23,7 @@ function Login() {
     email:'',
     photo: ''
   })
-
-  const [loggedInUser,setLoggedInUser]= useContext(UserContext);
+  
   const history= useHistory();
   const location= useLocation();
   const {from} = location.state || {from: {pathname: "/"}};
@@ -39,7 +42,7 @@ function Login() {
         email:email,
         photo: photoURL
       }
-      setUser(signedInUser);
+      setLoggedInUser(signedInUser);
      
         
       // console.log(displayName,photoURL,email);
@@ -82,7 +85,7 @@ function Login() {
         error: '',
         success:false
       }
-      setUser(signedOutUser);
+      setLoggedInUser(signedOutUser);
     })
     
   }
@@ -166,23 +169,23 @@ user.updateProfile({
   }
   return ( 
     <div  style={{textAlign:'center'}}>
-      <h1> PLease sign in to authenticate yourself</h1>
+      <h1> Sign In with Google</h1>
       {
-        user.isSignedIn ? <button onClick={handleSignOut}>Sign Out</button> : 
-        <button onClick={handleSignIn}>Please sign in</button>
+        // loggedInUser.isSignedIn ? <button onClick={handleSignOut}>Sign Out</button> : 
+        <button onClick={handleSignIn}>sign In</button>
       }
       <br/>
-      <button onClick={handleFbLogIn}>Sign in using Facebook</button>
+      {/* <button onClick={handleFbLogIn}>Sign in using Facebook</button> */}
       {
-        user.isSignedIn &&  <div>
-                                <p> Welcome, {user.name}</p>
-                                <p>Your Email: {user.email}</p>
-                                <img src={user.photo} alt=""/>
-                            </div>
+        // loggedInUser.isSignedIn &&  <div>
+        //                         <p> Welcome, {loggedInUser.name}</p>
+        //                         <p>Your Email: {loggedInUser.email}</p>
+        //                         {/* <img src={user.photo} alt=""/> */}
+        //                     </div>
       }
 
           <form onSubmit={handleSubmit}   className='registration'>
-                <h1>please signup for registration</h1>
+                <h2>New Sign Up </h2>
 
                 <input type="checkbox" onChange={()=> setNewUser(!newUser)} name="" id=""/>  
                

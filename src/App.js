@@ -20,6 +20,7 @@ import Login from './components/Login/Login';
 import { createContext } from 'react';
 import { useState } from 'react';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import { useContext } from 'react';
 
 
  export const UserContext = createContext();
@@ -27,10 +28,12 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 function App() {
 
   const [loggedInUser, setLoggedInUser] = useState({});
+  const [user, setUser] = useState({})
+  
   return (
-    <UserContext.Provider value = {[loggedInUser, setLoggedInUser]} >
+    <UserContext.Provider value = {[loggedInUser, setLoggedInUser] } >
 
-  <h3>email: {loggedInUser.email}</h3>
+  <h3>email: {loggedInUser.name}</h3>
       
       <Router>
       <Header></Header>
